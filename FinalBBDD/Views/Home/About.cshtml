@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Filter them by tag on the selector below or search by champion name. Click on any to see further information.</p>
+
+<div class="row">
+    <input type="search" default="Search by champion name..." onchange="" />
+</div>
+
+@for (int i = 0; i < ViewBag.ChampList.Count; i++)
+{
+    String id = ViewBag.ChampList[i].Id.ToString();
+    String name = ViewBag.ChampList[i].Name;
+    <div class="col-md-3">
+        <p>@id: @name</p>
+    </div>
+}
