@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Champion Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>@ViewBag.Champion.Id</p>
+<p>@ViewBag.Champion.Name</p>
+<p>@ViewBag.Champion.Title</p>
+<p>@ViewBag.Champion.Lore</p>
+<p>@string.Join( ",", ViewBag.Champion.Tags.ToArray() )</p>
+

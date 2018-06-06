@@ -10,5 +10,8 @@ namespace FinalBBDD.Models
     {
         public int Id { get; set; }
         public String Name { get; set; }
+        public String Lore { get; set; }
+        public String Title { get; set; }
+        public List<String> Tags { get; set; }
     }
 }

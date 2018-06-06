@@ -14,7 +14,17 @@
 {
     String id = ViewBag.ChampList[i].Id.ToString();
     String name = ViewBag.ChampList[i].Name;
-    <div class="col-md-3">
-        <p>@id: @name</p>
-    </div>
+<div class="col-md-3">
+    <p>
+        @Html.ActionLink(
+    linkText: @name,
+    actionName: "ChampionInfo",
+    controllerName: "Home",
+    routeValues: new {
+    id = ViewBag.ChampList[i].Id
+    },
+    htmlAttributes: null
+    )
+    </p>
+</div>
 }
