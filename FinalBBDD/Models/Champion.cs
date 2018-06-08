@@ -14,5 +14,7 @@ namespace FinalBBDD.Models
         public String Title { get; set; }
         public List<String> Tags { get; set; }
         public List<Ability> Abilities { get; set; }
+        public List<String> Tips { get; set; }
+
     }
 }

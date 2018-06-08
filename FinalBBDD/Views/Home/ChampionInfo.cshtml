@@ -26,6 +26,17 @@
         </div>
     }
 </div>
+<br />
+<div>
+    <h3>Tips for playing @ViewBag.Champion.Name:</h3>
+    @for (int i = 0; i < ViewBag.Champion.Tips.Count; i++)
+    {
+        <div class="row">
+            -@ViewBag.Champion.Tips[i] <br />
+        </div>
+
+    }
+</div>
 <button style="margin-top: 50px;">
     @Html.ActionLink(
 linkText: "Go back",

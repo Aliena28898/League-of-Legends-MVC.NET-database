@@ -21,40 +21,40 @@ namespace FinalBBDD.Controllers
         {
             //try
             //{
-                ViewBag.Message = "All champions.";
-                ViewBag.ChampList = new List<Champion>();
+            ViewBag.Message = "All champions.";
+            ViewBag.ChampList = new List<Champion>();
 
-                string Sql = "SELECT * FROM champions;";
-                string conn = ("Server=localhost;Database=lol;Uid=root;Pwd=2889828898;SslMode=none");
-                using (MySqlConnection connection = new MySqlConnection(conn))
+            string Sql = "SELECT * FROM champions;";
+            string conn = ("Server=localhost;Database=lol;Uid=root;Pwd=2889828898;SslMode=none");
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+
+                MySqlCommand com = new MySqlCommand();
+                com.Connection = connection;
+                com.CommandText = Sql;
+
+
+                MySqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    connection.Open();
-
-                    MySqlCommand com = new MySqlCommand();
-                    com.Connection = connection;
-                    com.CommandText = Sql;
-
-
-                    MySqlDataReader reader = com.ExecuteReader();
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            //reader.Read();
+                        //reader.Read();
 
-                            Champion champ = new Champion();
-                            champ.Id = reader.GetInt32(0);
-                            champ.Name = reader.GetString(1);
+                        Champion champ = new Champion();
+                        champ.Id = reader.GetInt32(0);
+                        champ.Name = reader.GetString(1);
 
-                            ViewBag.ChampList.Add(champ);
+                        ViewBag.ChampList.Add(champ);
 
-                        }
                     }
                 }
+            }
 
-                //ViewBag.TagList = ["Mage", "Ranged", "Starter-friendly", "Fighter", "Melee", "Tank", "Support", "Assassin", "Pusher", "Jungler", "Carry", "Stealth"];
+            //ViewBag.TagList = ["Mage", "Ranged", "Starter-friendly", "Fighter", "Melee", "Tank", "Support", "Assassin", "Pusher", "Jungler", "Carry", "Stealth"];
 
-                return View();
+            return View();
             //}
             //catch (Exception e)
             //{
@@ -72,7 +72,7 @@ namespace FinalBBDD.Controllers
 
         public ActionResult ChampionInfo(int id)
         {
-            string Sql = "SELECT * FROM champions where id ="+id.ToString()+";";
+            string Sql = "SELECT * FROM champions where id =" + id.ToString() + ";";
             string conn = ("Server=localhost;Database=lol;Uid=root;Pwd=2889828898;SslMode=none");
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
@@ -130,16 +130,42 @@ namespace FinalBBDD.Controllers
                         champ.description = reader.GetString(3);
 
                         ViewBag.Champion.Abilities.Add(champ);
-                        
+
 
                     }
                 }
+
+
             }
 
+            Sql = "SELECT * FROM champion_tips where champion =" + id.ToString() + ";";
+            conn = ("Server=localhost;Database=lol;Uid=root;Pwd=2889828898;SslMode=none");
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+
+                MySqlCommand com = new MySqlCommand();
+                com.Connection = connection;
+                com.CommandText = Sql;
 
 
-            return View();
+                MySqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    ViewBag.Champion.Tips = new List<String>();
+                    while (reader.Read())
+                    {
+                        //reader.Read();
+
+                        ViewBag.Champion.Tips.Add(reader.GetString(2));
+
+
+                    }
+                }
+
+                return View();
+            }
+
         }
-
     }
 }
