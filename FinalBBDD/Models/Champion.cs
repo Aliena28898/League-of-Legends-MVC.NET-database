@@ -13,5 +13,6 @@ namespace FinalBBDD.Models
         public String Lore { get; set; }
         public String Title { get; set; }
         public List<String> Tags { get; set; }
+        public List<Ability> Abilities { get; set; }
     }
 }

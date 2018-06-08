@@ -104,6 +104,38 @@ namespace FinalBBDD.Controllers
                 }
             }
 
+            Sql = "SELECT * FROM champion_abilities where champion =" + id.ToString() + ";";
+            conn = ("Server=localhost;Database=lol;Uid=root;Pwd=2889828898;SslMode=none");
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+
+                MySqlCommand com = new MySqlCommand();
+                com.Connection = connection;
+                com.CommandText = Sql;
+
+
+                MySqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    ViewBag.Champion.Abilities = new List<Ability>();
+                    while (reader.Read())
+                    {
+                        //reader.Read();
+
+                        Ability champ = new Ability();
+                        champ.id = reader.GetInt32(0);
+                        champ.champion = reader.GetInt32(1);
+                        champ.name = reader.GetString(2);
+                        champ.description = reader.GetString(3);
+
+                        ViewBag.Champion.Abilities.Add(champ);
+                        
+
+                    }
+                }
+            }
+
 
 
             return View();
